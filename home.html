@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="main-title">
+        ✏️ Sketch Generation Application
+    </div>
+
+    <!-- Upload Card -->
+
+    <div class="custom-card">
+
+        <h3 class="section-title">
+            Upload Your Image
+        </h3>
+
+        <form action="/sketch"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <div class="mb-3">
+
+                <input type="file"
+                       name="file"
+                       class="form-control"
+                       accept="image/*"
+                       required>
+
+            </div>
+
+            <div class="text-center">
+
+                <button type="submit"
+                        class="btn custom-btn">
+                    Generate Sketch
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- Camera Feed -->
+
+    <div class="custom-card text-center">
+
+        <h3 class="section-title">
+            Live Camera Sketch
+        </h3>
+
+        <img src="{{ url_for('video') }}"
+             class="camera-feed">
+
+    </div>
+
+    <!-- Result Images -->
+
+    {% if sketch_img_name %}
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="custom-card text-center">
+
+                <h4 class="section-title">
+                    Original Image
+                </h4>
+
+                <img src="{{ url_for('static',
+                        filename='uploads/' + org_img_name) }}"
+                     class="result-img">
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="custom-card text-center">
+
+                <h4 class="section-title">
+                    Sketch Image
+                </h4>
+
+                <img src="{{ url_for('static',
+                        filename='uploads/' + sketch_img_name) }}"
+                     class="result-img">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    {% if error %}
+
+    <div class="alert alert-danger mt-3">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+</div>
+
+<footer>
+    © 2024 Vaishnavi Bhandarkar | Sketch Generation Application
+</footer>
+
+{% endblock %}
